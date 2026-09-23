@@ -3,4 +3,4 @@ Nhom 10
 22520355 - Hoang Truong Giang
 
 I am beginning to understand Git
-Hello from branch feature
+Hello from branch test
