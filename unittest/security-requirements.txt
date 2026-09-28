@@ -1,0 +1,9 @@
+Security Requirements: hàm json_search()
+
+Chính sách kiểm soát truy cập (Access Control Enforcement):
+Hệ thống chỉ trả về giá trị của trường cho các role nằm trong danh sách được phép truy cập trường đó được quy định tại policy.py.
+
+Nguyên tắc Từ chối Mặc định (Fail-safe default):
+Nếu tham số role không được truyền vào (role=None), hoặc role truyền vào không thuộc danh sách cho phép của key nằm trong policy.py, hàm json_search() phải trả về danh sách rỗng [].
+
+

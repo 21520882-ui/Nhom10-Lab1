@@ -1,0 +1,23 @@
+Threat Model: hàm json_search()
+
+Actors / Roles:
+Admin: Vai trò quản trị viên cao nhất, có toàn quyền tra cứu tất cả các trường thông tin trong hệ thống. 
+Operator: Vai trò vận hành hệ thống, được phép tra cứu các thông tin kỹ thuật và giám sát hạ tầng (managementIpAddress, issueSummary), nhưng không được xem API Key.   
+Viewer: Vai trò chỉ tra cứu và xem issueSummary của hệ thống.
+
+Assets:
+Các assets json_search trả về gồm:
+apiKey: khóa xác thực bí mật - mức độ rủi ro: cực kỳ cao.
+managementIpAddress: mức độ rủi ro: cao - trung bình.
+issueSummary: tóm tắt sự cố - mức độ rủi ro: thấp.
+
+Trust boundary:
+Trust boundary nằm giữa người gọi hàm json-search() và dữ liệu json nội bộ.
+Nếu json_search() chỉ tìm kiếm đệ quy theo key mà không xác thực role của người dùng trước khi duyệt thì trust boundary này hoàn toàn bị phá vỡ. Mọi role đều có thể trích xuất dữ liệu từ hệ thống.
+
+STRIDE Mapping:
+Information Disclosure: người dùng có role viewer gọi json_search(). Do hàm không kiểm tra role nên mọi dữ liệu có thể được trả về.
+
+Elevation of Privillege: kẻ tấn công có role viewer lợi dụng việc hàm json_search() không kiểm tra role để lấy apiKey. Từ đó có thể chiếm quyền quản trị hệ thống.
+
+
